@@ -84,7 +84,7 @@ const Newsletter =  () => {
       <div className={`form-container step-${currentStep}`}>
         <Subtitle content={stepData[currentStep].subtitle} />
         <form onSubmit={handleSubmit} data-netlify="true" netlify="true" name="newsletter">
-          <input type="hidden" name="newsletter" value="newsletter" />
+          <input type="hidden" form-name="newsletter" value="newsletter" />
           <div className="tab">
             {currentStep === 0 && (
               <>
