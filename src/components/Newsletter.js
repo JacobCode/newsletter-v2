@@ -35,12 +35,9 @@ const Newsletter =  () => {
     },
     {
       title: 'congratulations!',
-      subtitle: 'Thank You For Signing Up!'
+      subtitle: 'THANK YOU FOR SIGNING UP!'
     }
   ]
-  const showNextStep = () => {
-    dispatch(updateStep(currentStep + 1));
-  }
   const encode = (data) => {
 		return Object.keys(data)
 			.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
@@ -50,7 +47,9 @@ const Newsletter =  () => {
     e.preventDefault();
     TweenMax.to(newsletter, 0.6, {
 			opacity: 0,
-			onComplete: showNextStep,
+			onComplete: () => {
+        dispatch(updateStep(currentStep + 1));
+      },
 			ease: Power3.easeInOut
 		});
     if (email && firstName && lastName) {
@@ -78,16 +77,17 @@ const Newsletter =  () => {
       opacity: 1,
       ease: Power3.easeInOut
     })
-  }, [currentStep])
+  }, [currentStep]);
   return (
     <div className="newsletter" ref={el => newsletter = el}>
       <Title content={stepData[currentStep].title} />
       <div className={`form-container step-${currentStep}`}>
-        <input type="hidden" name="newsletter" value="signup" />
         <Subtitle content={stepData[currentStep].subtitle} />
-        <form onSubmit={handleSubmit} data-netlify-recaptcha="true" data-netlify="true" netlify="true" name="newsletter">
+        <form onSubmit={handleSubmit} data-netlify="true" netlify="true" name="newsletter">
+          <input type="hidden" name="newsletter" value="newsletter" />
+          <div className="tab">
             {currentStep === 0 && (
-              <div className="tab">
+              <>
                 <div className="form-group">
                   <input onChange={handleChange} type="email" placeholder="Email" name="email" required />
                   <Button color="primary" type="submit">NEXT</Button>
@@ -98,22 +98,19 @@ const Newsletter =  () => {
                     I agree to receive information from Interactive Nerd in accordance with the following <span>Privacy Policy</span>.
                   </label>
                 </div>
-              </div>
+              </>
             )}
             {currentStep === 1 && (
-              <div className="tab">
-                <div className="form-group">
-                  <input onChange={handleChange} value={firstName} placeholder="First Name" name="firstName" type="text" required />
-                  <input onChange={handleChange} value={lastName} placeholder="Last Name" name="lastName" type="text" required />
-                  <Button color="primary" type="submit">SIGN UP</Button>
-                </div>
+              <div className="form-group">
+                <input onChange={handleChange} value={firstName} placeholder="First Name" name="firstName" type="text" required />
+                <input onChange={handleChange} value={lastName} placeholder="Last Name" name="lastName" type="text" required />
+                <Button color="primary" type="submit">SIGN UP</Button>
               </div>
             )}
             {currentStep === 2 && (
-              <div className="tab">
-                <p> Look out for the latest news on your favorite shows.</p>
-              </div>
+              <p> Look out for the latest news on your favorite shows.</p>
             )}
+          </div>
         </form>
       </div>
     </div>
