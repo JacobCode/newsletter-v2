@@ -54,13 +54,13 @@ const Newsletter =  () => {
 		});
     if (email && firstName && lastName) {
       const data = { email, firstName, lastName }
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "newsletter", ...data })
-      })
-      .then(() => console.log("Success"))
-      .catch(error => console.error(error));
+			fetch("/", {
+					method: "POST",
+					headers: { "Content-Type": "application/x-www-form-urlencoded" },
+					body: encode({ "form-name": "newsletter", ...data })
+				})
+				.then(() => console.log("Success"))
+				.catch(error => console.error(error));
     }
   }
   const handleChange = (e) => {
@@ -83,8 +83,8 @@ const Newsletter =  () => {
       <Title content={stepData[currentStep].title} />
       <div className={`form-container step-${currentStep}`}>
         <Subtitle content={stepData[currentStep].subtitle} />
-        <form onSubmit={handleSubmit} data-netlify="true" netlify="true" name="newsletter">
-          <input type="hidden" form-name="newsletter" value="newsletter" />
+        <form onSubmit={handleSubmit} data-netlify="true" netlify="true">
+          <input type="hidden" name="form-name" value="newsletter" />
           <div className="tab">
             {currentStep === 0 && (
               <>
