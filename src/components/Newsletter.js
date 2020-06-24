@@ -83,7 +83,7 @@ const Newsletter =  () => {
       <Title content={stepData[currentStep].title} />
       <div className={`form-container step-${currentStep}`}>
         <Subtitle content={stepData[currentStep].subtitle} />
-        <form onSubmit={handleSubmit} data-netlify="true" netlify="true">
+        <form name="newsletter" onSubmit={handleSubmit} data-netlify="true" netlify="true">
           <input type="hidden" name="form-name" value="newsletter" />
           <div className="tab">
             {currentStep === 0 && (
